@@ -30,6 +30,8 @@ Partial Class newUserCtrl
         Me.emailTxt = New System.Windows.Forms.TextBox()
         Me.createBtn = New System.Windows.Forms.Button()
         Me.clearBtn = New System.Windows.Forms.Button()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.roleCmb = New System.Windows.Forms.ComboBox()
         Me.SuspendLayout()
         '
         'Label1
@@ -83,7 +85,7 @@ Partial Class newUserCtrl
         '
         'createBtn
         '
-        Me.createBtn.Location = New System.Drawing.Point(47, 91)
+        Me.createBtn.Location = New System.Drawing.Point(49, 123)
         Me.createBtn.Name = "createBtn"
         Me.createBtn.Size = New System.Drawing.Size(75, 23)
         Me.createBtn.TabIndex = 6
@@ -92,17 +94,37 @@ Partial Class newUserCtrl
         '
         'clearBtn
         '
-        Me.clearBtn.Location = New System.Drawing.Point(137, 91)
+        Me.clearBtn.Location = New System.Drawing.Point(144, 123)
         Me.clearBtn.Name = "clearBtn"
         Me.clearBtn.Size = New System.Drawing.Size(75, 23)
         Me.clearBtn.TabIndex = 7
         Me.clearBtn.Text = "Clear"
         Me.clearBtn.UseVisualStyleBackColor = True
         '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(15, 99)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(32, 13)
+        Me.Label4.TabIndex = 8
+        Me.Label4.Text = "Role:"
+        '
+        'roleCmb
+        '
+        Me.roleCmb.FormattingEnabled = True
+        Me.roleCmb.Items.AddRange(New Object() {"Administrator", "Librarian", "Designer", "Viewer"})
+        Me.roleCmb.Location = New System.Drawing.Point(76, 96)
+        Me.roleCmb.Name = "roleCmb"
+        Me.roleCmb.Size = New System.Drawing.Size(162, 21)
+        Me.roleCmb.TabIndex = 9
+        '
         'newUserCtrl
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.Controls.Add(Me.roleCmb)
+        Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.clearBtn)
         Me.Controls.Add(Me.createBtn)
         Me.Controls.Add(Me.emailTxt)
@@ -112,7 +134,7 @@ Partial Class newUserCtrl
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
         Me.Name = "newUserCtrl"
-        Me.Size = New System.Drawing.Size(265, 128)
+        Me.Size = New System.Drawing.Size(265, 152)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -125,5 +147,7 @@ Partial Class newUserCtrl
     Friend WithEvents emailTxt As System.Windows.Forms.TextBox
     Friend WithEvents createBtn As System.Windows.Forms.Button
     Friend WithEvents clearBtn As System.Windows.Forms.Button
+    Friend WithEvents Label4 As System.Windows.Forms.Label
+    Friend WithEvents roleCmb As System.Windows.Forms.ComboBox
 
 End Class

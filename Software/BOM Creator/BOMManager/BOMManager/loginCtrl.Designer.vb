@@ -29,6 +29,7 @@ Partial Class loginCtrl
         Me.loginBtn = New System.Windows.Forms.Button()
         Me.clearBtn = New System.Windows.Forms.Button()
         Me.newBtn = New System.Windows.Forms.Button()
+        Me.forgotBtn = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'Label1
@@ -66,7 +67,7 @@ Partial Class loginCtrl
         '
         'loginBtn
         '
-        Me.loginBtn.Location = New System.Drawing.Point(21, 65)
+        Me.loginBtn.Location = New System.Drawing.Point(67, 65)
         Me.loginBtn.Name = "loginBtn"
         Me.loginBtn.Size = New System.Drawing.Size(75, 23)
         Me.loginBtn.TabIndex = 4
@@ -75,7 +76,7 @@ Partial Class loginCtrl
         '
         'clearBtn
         '
-        Me.clearBtn.Location = New System.Drawing.Point(102, 65)
+        Me.clearBtn.Location = New System.Drawing.Point(148, 94)
         Me.clearBtn.Name = "clearBtn"
         Me.clearBtn.Size = New System.Drawing.Size(75, 23)
         Me.clearBtn.TabIndex = 5
@@ -91,10 +92,20 @@ Partial Class loginCtrl
         Me.newBtn.Text = "New User"
         Me.newBtn.UseVisualStyleBackColor = True
         '
+        'forgotBtn
+        '
+        Me.forgotBtn.Location = New System.Drawing.Point(148, 65)
+        Me.forgotBtn.Name = "forgotBtn"
+        Me.forgotBtn.Size = New System.Drawing.Size(110, 23)
+        Me.forgotBtn.TabIndex = 7
+        Me.forgotBtn.Text = "Forgot password?"
+        Me.forgotBtn.UseVisualStyleBackColor = True
+        '
         'loginCtrl
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.Controls.Add(Me.forgotBtn)
         Me.Controls.Add(Me.newBtn)
         Me.Controls.Add(Me.clearBtn)
         Me.Controls.Add(Me.loginBtn)
@@ -103,7 +114,7 @@ Partial Class loginCtrl
         Me.Controls.Add(Me.userTxt)
         Me.Controls.Add(Me.Label1)
         Me.Name = "loginCtrl"
-        Me.Size = New System.Drawing.Size(217, 129)
+        Me.Size = New System.Drawing.Size(281, 129)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -115,5 +126,6 @@ Partial Class loginCtrl
     Friend WithEvents loginBtn As System.Windows.Forms.Button
     Friend WithEvents clearBtn As System.Windows.Forms.Button
     Friend WithEvents newBtn As System.Windows.Forms.Button
+    Friend WithEvents forgotBtn As System.Windows.Forms.Button
 
 End Class

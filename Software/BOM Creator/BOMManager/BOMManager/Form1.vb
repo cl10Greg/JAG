@@ -142,6 +142,7 @@
         AdminToolStripMenuItem.Enabled = False
         ChangePasswordToolStripMenuItem.Enabled = False
         LogoutToolStripMenuItem.Enabled = False
+        SaveToolStripMenuItem.Enabled = False
     End Sub
     'Private sub routine
     'Name:      resizePanels
@@ -225,8 +226,16 @@
             bomGrid.Dock = DockStyle.Fill
             'Makes the grid view visible
             bomGrid.Visible = True
+            'The first call for load reads the file
             bomGrid.DataSource = bomObj.getBOM
-            Call storeBOM(bomObj)
+            pActiveBom = bomObj
+            'Add handler to grid changes
+            AddHandler bomGrid.CellEndEdit, AddressOf Me.bomGrid_Edit
+            SaveToolStripMenuItem.Enabled = True
+            'Need to add controls based on user access
+            'if owner or writer, allow editing
+            'If not, then your a viewer and you can't change or add anything
+
         End If
     End Sub
 
@@ -239,7 +248,22 @@
         bomGrid.Dock = DockStyle.Fill
         'Makes the grid view visible
         bomGrid.Visible = True
-        bomGrid.DataSource = tempObj.getDataTable
+        bomGrid.DataSource = tempObj.bomTable
+        bomGrid.AutoResizeColumns()
+        bomGrid.AutoResizeRows()
+        AddHandler bomGrid.CellEndEdit, AddressOf Me.bomGrid_Edit
+    End Sub
+
+    Private Sub bomGrid_Edit(ByVal sender As System.Object, ByVal e As System.EventArgs)
+        Dim tempView As New DataGridView
+        Dim tempTable As New DataTable
+        Dim x As Integer = 0
+
+        tempView = contentPanel.Controls.OfType(Of DataGridView).First
+        'Save the changes to the datatable
+        tempTable = tempView.DataSource
+        'Update the BOM table based on the user changes
+        pActiveBom.bomTable = tempTable
     End Sub
 
     Private Sub LogoutToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LogoutToolStripMenuItem.Click
@@ -269,7 +293,6 @@
         userGrid.Dock = DockStyle.Fill
         'Makes the grid view visible
         userGrid.Visible = True
-
         userGrid.DataSource = tempUsers.getUserTable
     End Sub
 
@@ -287,6 +310,14 @@
     End Sub
 
     Private Sub SaveToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SaveToolStripMenuItem.Click
-        'Save all the changes
+        'Write the changes to the BOM file
+        pActiveBom.writeBOMToFile()
+        'Update the project file
+
+    End Sub
+
+    Private Sub ExportBOMToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExportBOMToolStripMenuItem.Click
+        'Export as csv or similar files
+
     End Sub
 End Class

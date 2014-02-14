@@ -1,6 +1,8 @@
-﻿Imports System.IO
+﻿'Import items for file manipulation
+Imports System.IO
 
 Public Class bomClass
+    'Private variables used for the object
     Private pBomName As String
     Private pItemNum As Integer
     Private pCompType As String
@@ -20,6 +22,8 @@ Public Class bomClass
     Private pFilePath As String
     Private pDataTable As DataTable
 
+    'Sets the bom name
+    'Derived from the file path
     Public Property bomName() As String
         Get
             Return pBomName
@@ -30,6 +34,7 @@ Public Class bomClass
             pBomName = tempVal(0) & ".bom"
         End Set
     End Property
+    'Get/Set the item number
     Public Property itemNumber() As Integer
         Get
             Return itemNumber
@@ -38,7 +43,7 @@ Public Class bomClass
             pItemNum = value
         End Set
     End Property
-
+    'Get/Set the component type
     Public Property componentType() As String
         Get
             Return pCompType
@@ -47,7 +52,7 @@ Public Class bomClass
             pCompType = value
         End Set
     End Property
-
+    'Get/Set the general description of the part
     Public Property generalDescription() As String
         Get
             Return pGenDes
@@ -56,7 +61,7 @@ Public Class bomClass
             pGenDes = value
         End Set
     End Property
-
+    'Get/set the detailed description of the part
     Public Property detailedDescription() As String
         Get
             Return pDetDes
@@ -65,7 +70,7 @@ Public Class bomClass
             pDetDes = value
         End Set
     End Property
-
+    'Get/set the manufacturer information
     Public Property manufacturer() As String
         Get
             Return pMfg
@@ -177,12 +182,25 @@ Public Class bomClass
             pFilePath = locString
         End Set
     End Property
+
+    Public Property bomTable() As DataTable
+        Get
+            Return pDataTable
+        End Get
+        Set(value As DataTable)
+            pDataTable = value
+        End Set
+    End Property
     'Read BOM from file to the datatable
     Public Function getBOM() As DataTable
+        'Set the decryption key
         Dim pBomKey As String = "checkEng00"
+        'Create a new datatable
         Dim bomSet As New DataTable
+        'Create a datarow
         Dim bomRow As DataRow
 
+        'If the file exist, Create the columns to the datatable
         If File.Exists(bomFilePath & bomName) Then
             bomSet.Columns.Add("Item #", GetType(Integer))
             bomSet.Columns.Add("Component Type", GetType(String))
@@ -200,28 +218,42 @@ Public Class bomClass
             bomSet.Columns.Add("Order Amount", GetType(Integer))
             bomSet.Columns.Add("Total Cost", GetType(Decimal))
 
+            'Set the decrption key
             Dim wrapper As New Simple3Des(pBomKey)
+            'Set the reader object
             Dim checkEmpty As New StreamReader(bomFilePath & bomName)
             Dim tempcontent As String
             Dim decText As String
             Dim splitString
 
+            'Check to see if the bom is empty
             If checkEmpty.ReadToEnd.Equals(String.Empty) Then
-                MsgBox("BOM is empty")
+                'Close the file
                 checkEmpty.Close()
+                'Set the dataTable to bomset (which is pretty much empty
                 pDataTable = bomSet
-                Return Nothing
+                'Return the empty bomset
+                Return bomSet
             Else
+                'Close the file
                 checkEmpty.Close()
+                'Create a new reader
                 Dim sr As New StreamReader(bomFilePath & bomName)
+                'Do a loop until all the information is read
                 Do
+                    'Read the line
                     tempcontent = sr.ReadLine
+                    'If the line is empty, exit the loop
                     If IsNothing(tempcontent) Then
                         Exit Do
                     Else
+                        'Decrypt the data
                         decText = wrapper.decryptData(tempcontent)
+                        'Create a new row
                         bomRow = bomSet.NewRow
+                        'Split up the line item of the bom
                         splitString = Split(decText, ",")
+                        'Store all the information to the datatable
                         bomRow("Item #") = CInt(splitString(0))
                         bomRow("Component Type") = splitString(1)
                         bomRow("General Description") = splitString(2)
@@ -237,26 +269,31 @@ Public Class bomClass
                         bomRow("Min Qty") = splitString(12)
                         bomRow("Order Amount") = splitString(13)
                         bomRow("Total Cost") = CDec(splitString(14))
+                        'Add the row to the datatable
                         bomSet.Rows.Add(bomRow)
                     End If
                 Loop
+                'Close the file
                 sr.Close()
             End If
-            
+            'If the file doesn't exist, return the empty dataTable
         Else
             MsgBox("File doesn't exist.")
             pDataTable = bomSet
-            Return Nothing
+            Return bomSet
         End If
 
+        'Return the dataTable
         pDataTable = bomSet
         Return bomSet
     End Function
     'Add item to the datatable
     Public Sub addItemToBOM()
+        'Create a new row
         Dim tempRow As DataRow
+        'Set the newrow to be a newrow of the datatable
         tempRow = pDataTable.NewRow
-
+        'Add items to the row
         tempRow("Item #") = pItemNum
         tempRow("Component Type") = pCompType
         tempRow("General Description") = pGenDes
@@ -273,22 +310,37 @@ Public Class bomClass
         tempRow("Order Amount") = pOrderQty
         tempRow("Total Cost") = pOrderCost
 
+        'Add the row to the dataTable
         pDataTable.Rows.Add(tempRow)
-        'Add item to the pDataTable object
-
-        'Add all data to the private variables
-        'create a new row
-        'Add a new row
-        'Update grid
     End Sub
 
-    Public Sub writeBOMToFile(tempFile As String)
-        'Write the file to the BOM location.  
-        'Write new file or append?
+    Public Sub writeBOMToFile()
 
+        'User pFilePath for save location
+        Dim wrapper As New Simple3Des("checkEng00")
+        Dim bomItem As String = ""
+        Dim cipherText As String = ""
+        'Cycle through each row, make a string out of all the items
+        For x = 0 To pDataTable.Rows.Count - 1
+            For y = 0 To pDataTable.Columns.Count - 1
+                If y = 0 Then
+                    bomItem = pDataTable.Rows(x).Item(y)
+                Else
+                    bomItem = bomItem & "," & pDataTable.Rows(x).Item(y)
+                End If
+
+            Next
+            cipherText = wrapper.encryptData(bomItem)
+            If x = 0 Then
+                File.WriteAllText(pFilePath & pBomName, cipherText)
+            Else
+                File.AppendAllText(pFilePath & pBomName, cipherText)
+            End If
+        Next
+
+        'Get the newest data table from either the class or the datagridview (it should be the class)
+        'Format the output string
+        'Encrypt it
+        'Create and write
     End Sub
-
-    Public Function getDataTable() As DataTable
-        Return pDataTable
-    End Function
 End Class

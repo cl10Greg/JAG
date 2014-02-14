@@ -25,6 +25,7 @@ Partial Class MainFrm
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.NewBOMToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.SaveToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.LoadBOMToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ExportBOMToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.PrintBOMToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -43,13 +44,12 @@ Partial Class MainFrm
         Me.AdminToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.CreateUsersToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ModifyUsersToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ViewUsersToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.projectPanel = New System.Windows.Forms.Panel()
         Me.actionPanel = New System.Windows.Forms.Panel()
         Me.contentPanel = New System.Windows.Forms.Panel()
         Me.projectDiag = New System.Windows.Forms.OpenFileDialog()
-        Me.ViewUsersToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.SaveToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -72,31 +72,37 @@ Partial Class MainFrm
         'NewBOMToolStripMenuItem
         '
         Me.NewBOMToolStripMenuItem.Name = "NewBOMToolStripMenuItem"
-        Me.NewBOMToolStripMenuItem.Size = New System.Drawing.Size(107, 22)
+        Me.NewBOMToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.NewBOMToolStripMenuItem.Text = "New"
+        '
+        'SaveToolStripMenuItem
+        '
+        Me.SaveToolStripMenuItem.Name = "SaveToolStripMenuItem"
+        Me.SaveToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.SaveToolStripMenuItem.Text = "Save"
         '
         'LoadBOMToolStripMenuItem
         '
         Me.LoadBOMToolStripMenuItem.Name = "LoadBOMToolStripMenuItem"
-        Me.LoadBOMToolStripMenuItem.Size = New System.Drawing.Size(107, 22)
+        Me.LoadBOMToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.LoadBOMToolStripMenuItem.Text = "Load"
         '
         'ExportBOMToolStripMenuItem
         '
         Me.ExportBOMToolStripMenuItem.Name = "ExportBOMToolStripMenuItem"
-        Me.ExportBOMToolStripMenuItem.Size = New System.Drawing.Size(107, 22)
+        Me.ExportBOMToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.ExportBOMToolStripMenuItem.Text = "Export"
         '
         'PrintBOMToolStripMenuItem
         '
         Me.PrintBOMToolStripMenuItem.Name = "PrintBOMToolStripMenuItem"
-        Me.PrintBOMToolStripMenuItem.Size = New System.Drawing.Size(107, 22)
+        Me.PrintBOMToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.PrintBOMToolStripMenuItem.Text = "Print"
         '
         'ExitToolStripMenuItem
         '
         Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
-        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(107, 22)
+        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.ExitToolStripMenuItem.Text = "Exit"
         '
         'BOMToolStripMenuItem
@@ -115,13 +121,13 @@ Partial Class MainFrm
         'EditToolStripMenuItem
         '
         Me.EditToolStripMenuItem.Name = "EditToolStripMenuItem"
-        Me.EditToolStripMenuItem.Size = New System.Drawing.Size(107, 22)
+        Me.EditToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.EditToolStripMenuItem.Text = "Edit"
         '
         'DeleteToolStripMenuItem
         '
         Me.DeleteToolStripMenuItem.Name = "DeleteToolStripMenuItem"
-        Me.DeleteToolStripMenuItem.Size = New System.Drawing.Size(107, 22)
+        Me.DeleteToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.DeleteToolStripMenuItem.Text = "Delete"
         '
         'UsersToolStripMenuItem
@@ -159,13 +165,13 @@ Partial Class MainFrm
         'EditProjectToolStripMenuItem
         '
         Me.EditProjectToolStripMenuItem.Name = "EditProjectToolStripMenuItem"
-        Me.EditProjectToolStripMenuItem.Size = New System.Drawing.Size(134, 22)
+        Me.EditProjectToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.EditProjectToolStripMenuItem.Text = "Edit project"
         '
         'EditAccessToolStripMenuItem
         '
         Me.EditAccessToolStripMenuItem.Name = "EditAccessToolStripMenuItem"
-        Me.EditAccessToolStripMenuItem.Size = New System.Drawing.Size(134, 22)
+        Me.EditAccessToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.EditAccessToolStripMenuItem.Text = "Edit Access"
         '
         'AdminToolStripMenuItem
@@ -178,14 +184,20 @@ Partial Class MainFrm
         'CreateUsersToolStripMenuItem
         '
         Me.CreateUsersToolStripMenuItem.Name = "CreateUsersToolStripMenuItem"
-        Me.CreateUsersToolStripMenuItem.Size = New System.Drawing.Size(143, 22)
+        Me.CreateUsersToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.CreateUsersToolStripMenuItem.Text = "Create Users"
         '
         'ModifyUsersToolStripMenuItem
         '
         Me.ModifyUsersToolStripMenuItem.Name = "ModifyUsersToolStripMenuItem"
-        Me.ModifyUsersToolStripMenuItem.Size = New System.Drawing.Size(143, 22)
+        Me.ModifyUsersToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.ModifyUsersToolStripMenuItem.Text = "Modify Users"
+        '
+        'ViewUsersToolStripMenuItem
+        '
+        Me.ViewUsersToolStripMenuItem.Name = "ViewUsersToolStripMenuItem"
+        Me.ViewUsersToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.ViewUsersToolStripMenuItem.Text = "View Users"
         '
         'HelpToolStripMenuItem
         '
@@ -221,18 +233,6 @@ Partial Class MainFrm
         '
         Me.projectDiag.DefaultExt = "bfg"
         Me.projectDiag.Filter = "(*.bfg)|*.bfg"
-        '
-        'ViewUsersToolStripMenuItem
-        '
-        Me.ViewUsersToolStripMenuItem.Name = "ViewUsersToolStripMenuItem"
-        Me.ViewUsersToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
-        Me.ViewUsersToolStripMenuItem.Text = "View Users"
-        '
-        'SaveToolStripMenuItem
-        '
-        Me.SaveToolStripMenuItem.Name = "SaveToolStripMenuItem"
-        Me.SaveToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
-        Me.SaveToolStripMenuItem.Text = "Save"
         '
         'MainFrm
         '
